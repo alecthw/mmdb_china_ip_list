@@ -66,7 +66,8 @@ perl Build.PL
             "es": "China"
         },
         "iso_code": "CN",
-        "geoname_id": 1814991
+        "geoname_id": 1814991,
+        "is_in_european_union": false,
     },
     "registered_country": {
         "names": {
@@ -81,11 +82,30 @@ perl Build.PL
         },
         "iso_code": "CN",
         "geoname_id": 1814991
+    },
+    "represented_country": {
+        "names": {
+            "de": "China",
+            "ru": "Китай",
+            "pt-BR": "China",
+            "ja": "中国",
+            "en": "China",
+            "fr": "Chine",
+            "zh-CN": "中国",
+            "es": "China"
+        },
+        "iso_code": "CN",
+        "geoname_id": 1814991
+    },
+    "traits": {
+        "is_anonymous_proxy": true,
+        "is_satellite_provider": true
     }
 }
 
 
 https://raw.githubusercontent.com/17mon/china_ip_list/master/china_ip_list.txt
+https://raw.githubusercontent.com/metowolf/iplist/master/data/country/CN.txt
 
 https://github.com/maxmind/MaxMind-DB-Writer-perl
 
