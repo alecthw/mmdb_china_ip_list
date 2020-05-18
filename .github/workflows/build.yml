@@ -1,11 +1,4 @@
-#=================================================
-# https://github.com/P3TERX/Actions-OpenWrt
-# Description: Build OpenWrt using GitHub Actions
-# Lisence: MIT
-# Author: P3TERX
-# Blog: https://p3terx.com
-#=================================================
-name: Build GeoIP MindMax DataBase with better china ip
+name: Build MMDB
 
 on:
   schedule:
@@ -30,7 +23,13 @@ jobs:
           sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
           sudo -E apt-get -y autoremove --purge
           sudo -E apt-get clean
-          
+
+    - name: Set env variables
+      run: |
+        echo "::set-env name=RELEASE_NAME::Released on $(date +%Y%m%d%H%M)"
+        echo "::set-env name=TAG_NAME::$(date +%Y%m%d%H%M)"
+      shell: bash
+
     - name: Clone MaxMind-DB-Writer-perl
       env: 
         REPO_URL: https://github.com/maxmind/MaxMind-DB-Writer-perl
@@ -42,6 +41,7 @@ jobs:
       run: git clone $REPO_URL
 
     - name: Install perl deps
+      continue-on-error: true
       run: |
           cd writer
           curl -LO http://xrl.us/cpanm
@@ -77,8 +77,14 @@ jobs:
           cd mmdb_china_ip_list
           perl china_ip_list.pl
 
-    # - name: Upload artifact
-    #   uses: actions/upload-artifact@master
+    # - name: Release and upload assets
+    #   uses: softprops/action-gh-release@v1
     #   with:
-    #     name: OpenWrt firmware
-    #     path: ./artifact/
+    #     name: ${{ env.RELEASE_NAME }}
+    #     tag_name: ${{ env.TAG_NAME }}
+    #     draft: false
+    #     prerelease: false
+    #     files: |
+    #       ./mmdb_china_ip_list/china_ip_list.mmdb
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

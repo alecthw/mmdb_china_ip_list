@@ -1,5 +1,7 @@
 # mmdb_china_ip_list
 
+![Build MMDB](https://github.com/alecthw/mmdb_china_ip_list/workflows/Build%20GeoIP%20MindMax%20DataBase%20with%20better%20china%20ip/badge.svg)
+
 GeoIP MaxMind Database with china ip list!
 
 ## 简介
