@@ -1,19 +1,72 @@
 # mmdb_china_ip_list
-Geoip MaxMind Database for china ip list!
 
+GeoIP MaxMind Database with china ip list!
+
+## 简介
+
+Clash、Surge等工具中使用的`GeoLite2-Country`对中国IP的匹配不是很友好，实际使用中出现不少问题。
+
+因此开发了这个项目，在MaxMind数据库的基础上，加入了[china_ip_list](https://raw.githubusercontent.com/17mon/china_ip_list/master/china_ip_list.txt)和[纯真CN数据库](https://raw.githubusercontent.com/metowolf/iplist/master/data/country/CN.txt)，使得对中国IP匹配得更为友好。
+
+
+## 构建
+
+需要`perl`环境，`MaxMind-DB-Writer-perl`的依赖和使用可以参考[官方文档](https://github.com/maxmind/MaxMind-DB-Writer-perl)。
+
+``` bash
+# 下载mmdb writer
 git clone https://github.com/maxmind/MaxMind-DB-Writer-perl.git writer
-
 cd writer
 
+# 安装依赖
 curl -LO http://xrl.us/cpanm
-
 perl cpanm –installdeps .
-./Build manifest
 
+# 构建
+./Build manifest
 perl Build.PL
 ./Build install
 
+# 返回上级目录
+cd ..
 
+# 下载本项目
+git clone https://github.com/alecthw/mmdb_china_ip_list.git
+cd mmdb_china_ip_list
+
+# 下载GeoLite2-Country-CSV
+curl -L -o GeoLite2-Country-CSV.zip "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country-CSV&license_key=JvbzLLx7qBZT&suffix=zip"
+unzip GeoLite2-Country-CSV.zip
+rm -f GeoLite2-Country-CSV.zip
+mv GeoLite2* mindmax
+
+# 下载china_ip_list
+curl -L -o china_ip_list.txt "https://raw.githubusercontent.com/17mon/china_ip_list/master/china_ip_list.txt"
+
+# 下载纯真数据库的CN
+curl -L -o CN.txt "https://raw.githubusercontent.com/metowolf/iplist/master/data/country/CN.txt"
+
+#构建
+perl china_ip_list.pl
+```
+生成的文件为`china_ip_list.mmdb`。
+
+## 使用
+
+使用方式同MaxMind官方API，可参考[指导文档](http://maxmind.github.io/MaxMind-DB/)。
+
+### OpenClash中使用
+
+将`china_ip_list.mmdb`重命名为`Country.mmdb`，然后替换掉`/etc/openclash/Country.mmdb`，最后重启下clash即可。
+
+## MaxMind GeoIP 格式
+
+官方对自己的数据库中的内容说明很少，都是自己一点点跟代码找出来的格式，然后据此生成的数据库。
+
+下面列出所有字段示例供参考。
+
+头
+``` json
 {
     "database_type": "GeoLite2-Country",
     "binary_format_major_version": 2,
@@ -36,9 +89,10 @@ perl Build.PL
     "node_count": 616946,
     "binary_format_minor_version": 0
 }
+```
 
-
-
+network->字段
+``` json
 {
     "continent": {
         "code": "AS",
@@ -102,18 +156,12 @@ perl Build.PL
         "is_satellite_provider": true
     }
 }
+```
 
+## 感谢
 
-https://raw.githubusercontent.com/17mon/china_ip_list/master/china_ip_list.txt
-https://raw.githubusercontent.com/metowolf/iplist/master/data/country/CN.txt
+- [GeoIP MaxMind DB 生成指南](https://blog.csdn.net/openex/article/details/53487465)
 
-https://github.com/maxmind/MaxMind-DB-Writer-perl
+- [GeoLite Mirror | Sukka](https://geolite.clash.dev/)
 
-
-http://maxmind.github.io/MaxMind-DB/
-
-https://blog.csdn.net/openex/article/details/53487465
-
-https://www.jianshu.com/p/1b1a018ae729
-
-https://codeload.github.com
+- [使用 GeoLite 实现IP精准定位(Java实现)](https://www.jianshu.com/p/1b1a018ae729)
