@@ -4,7 +4,7 @@
 
 GeoIP MaxMind Database with china ip list.
 
-适合在网络分流工具中使用，对中国IP的匹配分流更为友好，兼容Maxmind DB的客户端！
+适合在网络分流工具中使用，对中国IP的匹配分流更为友好，兼容MaxMind DB的客户端！
 
 ## 简介
 
