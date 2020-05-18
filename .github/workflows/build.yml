@@ -3,9 +3,9 @@ name: Build MMDB
 on:
   schedule:
     - cron: 2 20 * * 4
-  push:
-    branches: 
-      - master
+  # push:
+  #   branches: 
+  #     - master
 
 jobs:
   build:
@@ -78,7 +78,9 @@ jobs:
           perl china_ip_list.pl
 
     - name: Generate version file
-      run: echo $TAG_NAME > version
+      run: |
+          cd mmdb_china_ip_list
+          echo $TAG_NAME > version
 
     - name: Release and upload
       uses: softprops/action-gh-release@v1

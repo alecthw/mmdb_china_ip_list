@@ -2,14 +2,25 @@
 
 ![Build MMDB](https://github.com/alecthw/mmdb_china_ip_list/workflows/Build%20MMDB/badge.svg)
 
-GeoIP MaxMind Database with china ip list!
+GeoIP MaxMind Database with china ip list.
+
+适合在网络分流工具中使用，使得对中国IP的分流更为友好！
 
 ## 简介
 
-Clash、Surge等工具中使用的`GeoLite2-Country`对中国IP的匹配不是很友好，实际使用中出现不少问题。
+在网络分流工具(例如Clash)中使用[MaxMind](https://www.maxmind.com/en/home)的`GeoLite2-Country`对中国IP的匹配不是很友好，实际使用中出现不少问题。
 
-因此开发了这个项目，在MaxMind数据库的基础上，加入了[china_ip_list](https://raw.githubusercontent.com/17mon/china_ip_list/master/china_ip_list.txt)和[纯真CN数据库](https://raw.githubusercontent.com/metowolf/iplist/master/data/country/CN.txt)，使得对中国IP匹配得更为友好。
+此项目，在MaxMind数据库的基础上，加入了[china_ip_list](https://raw.githubusercontent.com/17mon/china_ip_list/master/china_ip_list.txt)和[纯真CN数据库](https://raw.githubusercontent.com/metowolf/iplist/master/data/country/CN.txt)，使得对中国IP匹配得更为友好。
 
+## 使用
+
+从[Release](https://github.com/alecthw/mmdb_china_ip_list/releases)下载生成的`china_ip_list.mmdb`。
+
+使用方式同MaxMind官方API，可参考[指导文档](http://maxmind.github.io/MaxMind-DB/)。
+
+### OpenClash中使用
+
+将`china_ip_list.mmdb`重命名为`Country.mmdb`，然后替换掉`/etc/openclash/Country.mmdb`，最后重启下clash即可。
 
 ## 构建
 
@@ -52,14 +63,6 @@ curl -L -o CN.txt "https://raw.githubusercontent.com/metowolf/iplist/master/data
 perl china_ip_list.pl
 ```
 生成的文件为`china_ip_list.mmdb`。
-
-## 使用
-
-使用方式同MaxMind官方API，可参考[指导文档](http://maxmind.github.io/MaxMind-DB/)。
-
-### OpenClash中使用
-
-将`china_ip_list.mmdb`重命名为`Country.mmdb`，然后替换掉`/etc/openclash/Country.mmdb`，最后重启下clash即可。
 
 ## MaxMind GeoIP 格式
 
