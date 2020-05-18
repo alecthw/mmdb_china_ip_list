@@ -1,6 +1,6 @@
 # mmdb_china_ip_list
 
-![Build MMDB](https://github.com/alecthw/mmdb_china_ip_list/workflows/Build%20GeoIP%20MindMax%20DataBase%20with%20better%20china%20ip/badge.svg)
+![Build MMDB](https://github.com/alecthw/mmdb_china_ip_list/workflows/Build%20MMDB/badge.svg)
 
 GeoIP MaxMind Database with china ip list!
 
@@ -172,4 +172,4 @@ network->字段
 
 ## 其他
 
-摸索不易，整合二次发布还望留个名......
+摸索不易，引用整合或者二次发布还望留个名......
