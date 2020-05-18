@@ -6,6 +6,8 @@ GeoIP MaxMind Database with china ip list.
 
 适合在网络分流工具中使用，对中国IP的匹配分流更为友好，兼容MaxMind DB的客户端！
 
+每周自动拉取新的MaxMind、china_ip_list和纯真CN数据库，并发布一个新的Release版本。
+
 ## 简介
 
 在网络分流工具(例如Clash)中使用[MaxMind](https://www.maxmind.com/en/home)的`GeoLite2-Country`对中国IP的匹配不是很友好，实际使用中出现不少问题。
