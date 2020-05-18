@@ -165,3 +165,9 @@ network->字段
 - [GeoLite Mirror | Sukka](https://geolite.clash.dev/)
 
 - [使用 GeoLite 实现IP精准定位(Java实现)](https://www.jianshu.com/p/1b1a018ae729)
+
+- [Loyalsoldier提供的GeoLite2-Country-CSV下载链接](https://github.com/Loyalsoldier/v2ray-rules-dat)
+
+## 其他
+
+摸索不易，整合二次发布还望留个名......

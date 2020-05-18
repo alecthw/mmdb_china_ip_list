@@ -1,0 +1,84 @@
+#=================================================
+# https://github.com/P3TERX/Actions-OpenWrt
+# Description: Build OpenWrt using GitHub Actions
+# Lisence: MIT
+# Author: P3TERX
+# Blog: https://p3terx.com
+#=================================================
+name: Build GeoIP MindMax DataBase with better china ip
+
+on:
+  schedule:
+    - cron: 2 20 * * 4
+  push:
+    branches: 
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+          sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
+          sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
+          sudo -E apt-get -qq update
+          sudo -E apt-get -qq install perl
+          sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+          sudo -E apt-get -y autoremove --purge
+          sudo -E apt-get clean
+          
+    - name: Clone MaxMind-DB-Writer-perl
+      env: 
+        REPO_URL: https://github.com/maxmind/MaxMind-DB-Writer-perl
+      run: git clone $REPO_URL writer
+
+    - name: Clone mmdb_china_ip_list
+      env: 
+        REPO_URL: https://github.com/alecthw/mmdb_china_ip_list
+      run: git clone $REPO_URL
+
+    - name: Install perl deps
+      run: |
+          cd writer
+          curl -LO http://xrl.us/cpanm
+          sudo -E perl cpanm –installdeps .
+          
+    - name: Build MaxMind-DB-Writer-perl
+      run: |
+          cd writer
+          sudo -E ./Build manifest
+          sudo -E perl Build.PL
+          sudo -E ./Build install
+
+    - name: Download GeoLite2-Country-CSV
+      run: |
+          cd mmdb_china_ip_list
+          curl -L -o GeoLite2-Country-CSV.zip "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country-CSV&license_key=JvbzLLx7qBZT&suffix=zip"
+          unzip GeoLite2-Country-CSV.zip
+          rm -f GeoLite2-Country-CSV.zip
+          mv GeoLite2* mindmax
+
+    - name: Download china_ip_list
+      run: |
+          cd mmdb_china_ip_list
+          curl -L -o china_ip_list.txt "https://raw.githubusercontent.com/17mon/china_ip_list/master/china_ip_list.txt"
+
+    - name: Download chunzhen cn
+      run: |
+          cd mmdb_china_ip_list
+          curl -L -o CN.txt "https://raw.githubusercontent.com/metowolf/iplist/master/data/country/CN.txt"
+
+    - name: build mmdb
+      run: |
+          cd mmdb_china_ip_list
+          perl china_ip_list.pl
+
+    # - name: Upload artifact
+    #   uses: actions/upload-artifact@master
+    #   with:
+    #     name: OpenWrt firmware
+    #     path: ./artifact/
