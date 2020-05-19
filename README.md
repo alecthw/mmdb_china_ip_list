@@ -8,6 +8,14 @@ GeoIP MaxMind Database with china ip list.
 
 每周自动拉取新的MaxMind、china_ip_list和纯真CN数据库，并发布一个新的Release版本。
 
+
+## 固定下载连接
+
+| 文件 | release分支 | 阿里云 |
+| ------ | ------ | ------ |
+| Country.mmdb | [链接](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/Country.mmdb) | [链接](http://www.ideame.top/mmdb/Country.mmdb) |
+| version | [链接](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/version) | [链接](http://www.ideame.top/mmdb/version) |
+
 ## 简介
 
 在网络分流工具(例如Clash)中使用[MaxMind](https://www.maxmind.com/en/home)的`GeoLite2-Country`对中国IP的匹配不是很友好，实际使用中出现不少问题。
