@@ -121,5 +121,5 @@ jobs:
         port: ${{ secrets.SFTP_PORT }}
         user: ${{ secrets.SFTP_USERNAME }}
         password: ${{ secrets.SFTP_PASSWORD }}
-        localPath: ./publish/
-        remotePath: /www/mmdb/
+        local_path: ./publish/
+        remote_path: /www/mmdb/
