@@ -121,3 +121,5 @@ jobs:
         password: ${{ secrets.SFTP_PASSWORD }}
         source: "publish/*"
         target: "/www/mmdb"
+        rm: true
+        strip_components: 1
