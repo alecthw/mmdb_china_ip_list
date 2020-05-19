@@ -83,7 +83,22 @@ jobs:
           cd mmdb_china_ip_list
           echo $TAG_NAME > version
 
+    - name: Release and upload
+      if: github.event == 'schedule'
+      uses: softprops/action-gh-release@v1
+      with:
+        name: ${{ env.RELEASE_NAME }}
+        tag_name: ${{ env.TAG_NAME }}
+        draft: false
+        prerelease: false
+        files: |
+          ./mmdb_china_ip_list/version
+          ./mmdb_china_ip_list/china_ip_list.mmdb
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Push to release branch
+      continue-on-error: true
       run: |
         mkdir publish
         cd publish
@@ -99,23 +114,12 @@ jobs:
         git push -f -u origin release
 
     - name: Upload to server
-      uses: SamKirkland/FTP-Deploy-Action@3.1.1
+      continue-on-error: true
+      uses: swznd/sftp-deploy@master
       with:
-        ftp-server: ${{ secrets.SFTP_SERVER }}/www/mmdb
-        ftp-username: ${{ secrets.SFTP_USERNAME }}
-        ftp-password: ${{ secrets.SFTP_PASSWORD }}
-        local-dir: ./publish/
-
-    - name: Release and upload
-      if: github.event == 'schedule'
-      uses: softprops/action-gh-release@v1
-      with:
-        name: ${{ env.RELEASE_NAME }}
-        tag_name: ${{ env.TAG_NAME }}
-        draft: false
-        prerelease: false
-        files: |
-          ./mmdb_china_ip_list/version
-          ./mmdb_china_ip_list/china_ip_list.mmdb
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        host: ${{ secrets.SFTP_HOST }}
+        port: ${{ secrets.SFTP_PORT }}
+        user: ${{ secrets.SFTP_USERNAME }}
+        password: ${{ secrets.SFTP_PASSWORD }}
+        localPath: ./publish/
+        remotePath: /www/mmdb/
