@@ -98,6 +98,14 @@ jobs:
         git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
         git push -f -u origin release
 
+    - name: Upload to server
+      uses: SamKirkland/FTP-Deploy-Action@3.1.1
+      with:
+        ftp-server: ${{ secrets.SFTP_SERVER }}/www/mmdb
+        ftp-username: ${{ secrets.SFTP_USERNAME }}
+        ftp-password: ${{ secrets.SFTP_PASSWORD }}
+        local-dir: ./publish/
+
     - name: Release and upload
       if: github.event == 'schedule'
       uses: softprops/action-gh-release@v1
