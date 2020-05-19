@@ -3,9 +3,9 @@ name: Build MMDB
 on:
   schedule:
     - cron: 2 20 * * 4
-  # push:
-  #   branches: 
-  #     - master
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -38,7 +38,8 @@ jobs:
     - name: Clone mmdb_china_ip_list
       env: 
         REPO_URL: https://github.com/alecthw/mmdb_china_ip_list
-      run: git clone $REPO_URL
+        REPO_BRANCH: master
+      run: git clone -b $REPO_BRANCH $REPO_URL
 
     - name: Install perl deps
       continue-on-error: true
@@ -82,7 +83,29 @@ jobs:
           cd mmdb_china_ip_list
           echo $TAG_NAME > version
 
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        ref: master
+        path: main
+
+    - name: Push to release branch
+      run: |
+        mkdir publish
+        cd publish
+        cp -af ../mmdb_china_ip_list/version ./
+        cp -af ../mmdb_china_ip_list/china_ip_list.mmdb ./Country.mmdb
+        git init
+        git config --local user.name "${{ github.actor }}"
+        git config --local user.email "${{ github.actor }}@users.noreply.github.com"
+        git checkout -b release
+        git add .
+        git commit -m "${{ env.RELEASE_NAME }}"
+        git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
+        git push -f -u origin release
+
     - name: Release and upload
+      if: github.event == 'schedule'
       uses: softprops/action-gh-release@v1
       with:
         name: ${{ env.RELEASE_NAME }}
