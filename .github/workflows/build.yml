@@ -83,12 +83,6 @@ jobs:
           cd mmdb_china_ip_list
           echo $TAG_NAME > version
 
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        ref: master
-        path: main
-
     - name: Push to release branch
       run: |
         mkdir publish
