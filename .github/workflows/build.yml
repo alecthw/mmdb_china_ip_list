@@ -84,7 +84,7 @@ jobs:
           echo $TAG_NAME > version
 
     - name: Release and upload
-      # if: github.event == 'schedule'
+      if: github.event == 'schedule'
       uses: softprops/action-gh-release@v1
       with:
         name: ${{ env.RELEASE_NAME }}
