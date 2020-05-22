@@ -3,9 +3,9 @@ name: Build MMDB
 on:
   schedule:
     - cron: 2 20 * * 4
-  push:
-    branches:
-      - master
+  # push:
+  #   branches:
+  #     - master
 
 jobs:
   build:
