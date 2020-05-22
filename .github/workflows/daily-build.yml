@@ -1,15 +1,15 @@
-name: Build MMDB
+name: Daily Build
 
 on:
   schedule:
-    - cron: 2 20 * * 4
+    - cron: 2 20 * * *
   push:
     branches:
       - master
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
 
     steps:
     - name: Initialization environment
@@ -83,26 +83,12 @@ jobs:
           cd mmdb_china_ip_list
           echo $TAG_NAME > version
 
-    - name: Release and upload
-      if: github.event == 'schedule'
-      uses: softprops/action-gh-release@v1
-      with:
-        name: ${{ env.RELEASE_NAME }}
-        tag_name: ${{ env.TAG_NAME }}
-        draft: false
-        prerelease: false
-        files: |
-          ./mmdb_china_ip_list/version
-          ./mmdb_china_ip_list/china_ip_list.mmdb
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
     - name: Push to release branch
       run: |
         mkdir publish
+        cp -af mmdb_china_ip_list/version publish/version
+        cp -af mmdb_china_ip_list/china_ip_list.mmdb publish/Country.mmdb
         cd publish
-        cp -af ../mmdb_china_ip_list/version ./
-        cp -af ../mmdb_china_ip_list/china_ip_list.mmdb ./Country.mmdb
         git init
         git config --local user.name "${{ github.actor }}"
         git config --local user.email "${{ github.actor }}@users.noreply.github.com"
@@ -119,7 +105,7 @@ jobs:
         port: ${{ secrets.SFTP_PORT }}
         username: ${{ secrets.SFTP_USERNAME }}
         password: ${{ secrets.SFTP_PASSWORD }}
-        source: "publish/*"
+        source: "publish/Country.mmdb,publish/version"
         target: "/www/mmdb"
         rm: true
         strip_components: 1
