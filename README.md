@@ -1,6 +1,6 @@
 # mmdb_china_ip_list
 
-![Build MMDB](https://github.com/alecthw/mmdb_china_ip_list/workflows/Build%20MMDB/badge.svg)
+![Daily Build](https://github.com/alecthw/mmdb_china_ip_list/workflows/Daily%20Build/badge.svg)
 
 GeoIP MaxMind Database with china ip list.
 
