@@ -1,6 +1,6 @@
 # mmdb_china_ip_list
 
-[README](README.md) | [English Document](README_en.md)
+[README](README_en.md) | [中文说明](README.md)
 
 ![Daily Build](https://github.com/alecthw/mmdb_china_ip_list/workflows/Daily%20Build/badge.svg)  ![Release Build](https://github.com/alecthw/mmdb_china_ip_list/workflows/Release%20Build/badge.svg)
 
