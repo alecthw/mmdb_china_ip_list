@@ -3,6 +3,12 @@ name: Release Build
 on:
   schedule:
     - cron: 3 20 * * 0
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - "**/README.md"
+      - "**/README_en.md"
 
 jobs:
   build:
