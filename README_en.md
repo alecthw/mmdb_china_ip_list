@@ -65,16 +65,16 @@ git clone https://github.com/alecthw/mmdb_china_ip_list.git
 cd mmdb_china_ip_list
 
 # Download GeoLite2-Country-CSV
-curl -L -o GeoLite2-Country-CSV.zip "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country-CSV&license_key=JvbzLLx7qBZT&suffix=zip"
+curl -LR -o GeoLite2-Country-CSV.zip "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country-CSV&license_key=JvbzLLx7qBZT&suffix=zip"
 unzip GeoLite2-Country-CSV.zip
 rm -f GeoLite2-Country-CSV.zip
 mv GeoLite2* mindmax
 
 # Download china_ip_list
-curl -L -o china_ip_list.txt "https://raw.githubusercontent.com/17mon/china_ip_list/master/china_ip_list.txt"
+curl -LR -o china_ip_list.txt "https://raw.githubusercontent.com/17mon/china_ip_list/master/china_ip_list.txt"
 
 # Download Chunzhen CN
-curl -L -o CN.txt "https://raw.githubusercontent.com/metowolf/iplist/master/data/country/CN.txt"
+curl -LR -o CN.txt "https://raw.githubusercontent.com/metowolf/iplist/master/data/special/china.txt"
 
 # Generate mmdb
 perl china_ip_list.pl
