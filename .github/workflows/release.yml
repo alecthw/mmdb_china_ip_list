@@ -2,13 +2,12 @@ name: Release Build
 
 on:
   schedule:
-    - cron: 3 20 * * 0
+    - cron: 0 20 * * 0
   push:
     branches:
       - master
-    paths-ignore:
-      - "**/README.md"
-      - "**/README_en.md"
+    paths:
+      - '.github/start'
 
 jobs:
   build:
@@ -26,6 +25,7 @@ jobs:
           sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
           sudo -E apt-get -y autoremove --purge
           sudo -E apt-get clean
+          perl --version
 
     - name: Set env variables
       run: |
