@@ -29,9 +29,8 @@ jobs:
 
     - name: Set env variables
       run: |
-        echo "::set-env name=RELEASE_NAME::Released on $(date +%Y%m%d)"
-        echo "::set-env name=TAG_NAME::$(date +%Y%m%d)"
-      shell: bash
+        echo "RELEASE_NAME=Released on $(date +%Y%m%d)" >> $GITHUB_ENV
+        echo "TAG_NAME=$(date +%Y%m%d)" >> $GITHUB_ENV
 
     - name: Clone MaxMind-DB-Writer-perl
       env: 
@@ -86,7 +85,7 @@ jobs:
     - name: Generate version file
       run: |
           cd mmdb_china_ip_list
-          echo $TAG_NAME > version
+          echo ${{ env.TAG_NAME }} > version
 
     - name: Release and upload
       uses: softprops/action-gh-release@v1
