@@ -47,7 +47,7 @@ jobs:
       continue-on-error: true
       run: |
           cd writer
-          curl -LRO http://xrl.us/cpanm
+          curl -LR http://cpanmin.us -o cpanm
           sudo -E perl cpanm –installdeps .
           
     - name: Build MaxMind-DB-Writer-perl
