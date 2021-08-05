@@ -12,13 +12,13 @@
 
 每周自动拉取新的MaxMind、china_ip_list和纯真CN数据库，并发布一个新的Release版本。
 
-
 ## 固定下载连接
 
-| 文件 | release分支 | 阿里云 |
-| ------ | ------ | ------ |
-| Country.mmdb | [链接](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/Country.mmdb) | [链接](http://www.ideame.top/mmdb/Country.mmdb) |
-| version | [链接](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/version) | [链接](http://www.ideame.top/mmdb/version) |
+| 文件 | release分支 | 阿里云 | CDN |
+| ------ | ------ | ------ | ------ |
+| Country.mmdb | [链接](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/Country.mmdb) | [链接](http://www.ideame.top/mmdb/Country.mmdb) | [链接](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/Country.mmdb) |
+| Country.mmdb lite | [链接](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/lite/Country.mmdb) | [链接](http://www.ideame.top/mmdb/lite/Country.mmdb) | [链接](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/lite/Country.mmdb) |
+| version | [链接](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/version) | [链接](http://www.ideame.top/mmdb/version) |  [链接](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/version) |
 
 ## 简介
 
@@ -76,6 +76,7 @@ curl -LR -o CN.txt "https://raw.githubusercontent.com/metowolf/iplist/master/dat
 # 生成mmdb
 perl china_ip_list.pl
 ```
+
 生成的文件为`china_ip_list.mmdb`。
 
 ## MaxMind GeoIP 格式
@@ -85,6 +86,7 @@ perl china_ip_list.pl
 下面列出所有字段示例供参考。
 
 头
+
 ``` json
 {
     "database_type": "GeoLite2-Country",
@@ -111,6 +113,7 @@ perl china_ip_list.pl
 ```
 
 network->字段
+
 ``` json
 {
     "continent": {

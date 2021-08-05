@@ -13,13 +13,13 @@ It is more friendly to Chinese IP matching and distribution.
 
 Automatically pull new MaxMind, china_ip_list and Chunzhen CN databases every week, and release a new Release version.
 
-
 ## Fixed download connection
 
-| File | release branch | Aliyun |
-| ------ | ------ | ------ |
-| Country.mmdb | [link](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/Country.mmdb) | [link](http://www.ideame.top/mmdb/Country.mmdb) |
-| version | [link](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/version) | [link](http://www.ideame.top/mmdb/version) |
+| 文件 | release分支 | 阿里云 | CDN |
+| ------ | ------ | ------ | ------ |
+| Country.mmdb | [link](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/Country.mmdb) | [link](http://www.ideame.top/mmdb/Country.mmdb) | [link](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/Country.mmdb) |
+| Country.mmdb lite | [link](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/lite/Country.mmdb) | [link](http://www.ideame.top/mmdb/lite/Country.mmdb) | [link](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/lite/Country.mmdb) |
+| version | [link](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/version) | [link](http://www.ideame.top/mmdb/version) |  [link](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/version) |
 
 ## Introduction
 
@@ -79,6 +79,7 @@ curl -LR -o CN.txt "https://raw.githubusercontent.com/metowolf/iplist/master/dat
 # Generate mmdb
 perl china_ip_list.pl
 ```
+
 The generated file is`china_ip_list.mmdb`。
 
 ## MaxMind GeoIP Format
@@ -89,6 +90,7 @@ It's the format that I found out  with debugging the source code. And then gener
 Examples of all fields are listed below for reference.
 
 header
+
 ``` json
 {
     "database_type": "GeoLite2-Country",
@@ -115,6 +117,7 @@ header
 ```
 
 network-field
+
 ``` json
 {
     "continent": {
