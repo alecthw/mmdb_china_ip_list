@@ -15,11 +15,11 @@ Automatically pull new MaxMind, china_ip_list and Chunzhen CN databases every we
 
 ## Fixed download connection
 
-| 文件 | release分支 | 阿里云 | CDN |
+| 文件 | release分支 (Daily) | CDN (Daily) | 阿里云 (Release) |
 | ------ | ------ | ------ | ------ |
-| Country.mmdb | [link](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/Country.mmdb) | [link](http://www.ideame.top/mmdb/Country.mmdb) | [link](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/Country.mmdb) |
-| Country.mmdb lite | [link](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/lite/Country.mmdb) | [link](http://www.ideame.top/mmdb/lite/Country.mmdb) | [link](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/lite/Country.mmdb) |
-| version | [link](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/version) | [link](http://www.ideame.top/mmdb/version) |  [link](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/version) |
+| Country.mmdb | [link](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/Country.mmdb) | [link](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/Country.mmdb) | [link](http://www.ideame.top/mmdb/Country.mmdb) |
+| Country.mmdb lite | [link](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/lite/Country.mmdb) | [link](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/lite/Country.mmdb) | -- |
+| version | [link](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/version) | [link](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/version) | [link](http://www.ideame.top/mmdb/version) |
 
 ## Introduction
 
@@ -193,6 +193,8 @@ network-field
 - [使用 GeoLite 实现IP精准定位(Java实现)](https://www.jianshu.com/p/1b1a018ae729)
 
 - [Loyalsoldier提供的GeoLite2-Country-CSV下载链接](https://github.com/Loyalsoldier/v2ray-rules-dat)
+
+- [JMVoid 的 Golang 版本 mmdb writer 使用示例](https://github.com/JMVoid/ipip2mmdb)
 
 ## Last
 

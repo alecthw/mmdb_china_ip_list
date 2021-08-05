@@ -14,11 +14,14 @@
 
 ## 固定下载连接
 
-| 文件 | release分支 | 阿里云 | CDN |
+- Release build 仍然使用 perl 版本的 mmdb writer 构建。
+- Daily build 切换到 golang 版本的 mmdb writer 构建，并且完整版本是加载官方`GeoLite2-Country.mmdb`的基础上覆盖写入chinaIp，并非从零构建。Lite版本是从零构建，只写入了 iso_code 和 geoname_id，以达到缩小体积的目的
+
+| 文件 | release分支 (Daily) | CDN (Daily) | 阿里云 (Release) |
 | ------ | ------ | ------ | ------ |
-| Country.mmdb | [链接](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/Country.mmdb) | [链接](http://www.ideame.top/mmdb/Country.mmdb) | [链接](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/Country.mmdb) |
-| Country.mmdb lite | [链接](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/lite/Country.mmdb) | [链接](http://www.ideame.top/mmdb/lite/Country.mmdb) | [链接](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/lite/Country.mmdb) |
-| version | [链接](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/version) | [链接](http://www.ideame.top/mmdb/version) |  [链接](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/version) |
+| Country.mmdb | [链接](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/Country.mmdb) | [链接](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/Country.mmdb) | [链接](http://www.ideame.top/mmdb/Country.mmdb) |
+| Country.mmdb lite | [链接](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/lite/Country.mmdb) | [链接](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/lite/Country.mmdb) | -- |
+| version | [链接](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/version) | [链接](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/version) | [链接](http://www.ideame.top/mmdb/version) |
 
 ## 简介
 
@@ -189,6 +192,8 @@ network->字段
 - [使用 GeoLite 实现IP精准定位(Java实现)](https://www.jianshu.com/p/1b1a018ae729)
 
 - [Loyalsoldier提供的GeoLite2-Country-CSV下载链接](https://github.com/Loyalsoldier/v2ray-rules-dat)
+
+- [JMVoid 的 Golang 版本 mmdb writer 使用示例](https://github.com/JMVoid/ipip2mmdb)
 
 ## 其他
 
