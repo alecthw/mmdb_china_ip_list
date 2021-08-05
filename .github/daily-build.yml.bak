@@ -21,20 +21,21 @@ jobs:
           sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
           sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
           sudo -E apt-get -qq update
+          sudo -E apt-get -qq install perl
           sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
           sudo -E apt-get -y autoremove --purge
           sudo -E apt-get clean
           perl --version
 
-    - name: Set Golang environment
-      uses: actions/setup-go@v2
-      with:
-        go-version: '^1.15.6'
-
     - name: Set env variables
       run: |
         echo "RELEASE_NAME=Released on $(date +%Y%m%d)" >> $GITHUB_ENV
         echo "TAG_NAME=$(date +%Y%m%d)" >> $GITHUB_ENV
+
+    - name: Clone MaxMind-DB-Writer-perl
+      env: 
+        REPO_URL: https://github.com/maxmind/MaxMind-DB-Writer-perl
+      run: git clone $REPO_URL writer
 
     - name: Clone mmdb_china_ip_list
       env: 
@@ -42,16 +43,19 @@ jobs:
         REPO_BRANCH: master
       run: git clone -b $REPO_BRANCH $REPO_URL
 
-    - name: Download GeoLite2-Country
-      env:
-        LICENSE_KEY: ${{ secrets.MAXMIND_GEOLITE2_LICENSE }}
+    - name: Install perl deps
+      continue-on-error: true
       run: |
-          cd mmdb_china_ip_list
-          curl -LR "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key=${LICENSE_KEY}&suffix=tar.gz" -o GeoLite2-Country.tar.gz
-          tar xzvf GeoLite2-Country.tar.gz
-          rm -f GeoLite2-Country.tar.gz
-          mv GeoLite2-Country_*/GeoLite2-Country.mmdb ./
-          rm -rf GeoLite2-Country_*
+          cd writer
+          curl -LR http://cpanmin.us -o cpanm
+          sudo -E perl cpanm –installdeps .
+          
+    - name: Build MaxMind-DB-Writer-perl
+      run: |
+          cd writer
+          sudo -E ./Build manifest
+          sudo -E perl Build.PL
+          sudo -E ./Build install
 
     - name: Download GeoLite2-Country-CSV
       env:
@@ -61,7 +65,7 @@ jobs:
           curl -LR "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country-CSV&license_key=${LICENSE_KEY}&suffix=zip" -o GeoLite2-Country-CSV.zip
           unzip GeoLite2-Country-CSV.zip
           rm -f GeoLite2-Country-CSV.zip
-          mv GeoLite2-Country-CSV_* mindmax
+          mv GeoLite2* mindmax
 
     - name: Download china_ip_list
       run: |
@@ -73,15 +77,10 @@ jobs:
           cd mmdb_china_ip_list
           curl -LR -o CN.txt "https://raw.githubusercontent.com/metowolf/iplist/master/data/special/china.txt"
 
-    - name: Build mmdb generator
+    - name: Build mmdb
       run: |
           cd mmdb_china_ip_list
-          go build -o mmdb_gen
-
-    - name: Generate mmdb file
-      run: |
-          cd mmdb_china_ip_list
-          ./mmdb_gen
+          perl china_ip_list.pl
 
     - name: Generate version file
       run: |
@@ -90,10 +89,9 @@ jobs:
 
     - name: Push to release branch
       run: |
-        mkdir -p publish/lite
+        mkdir publish
         cp -af mmdb_china_ip_list/version publish/version
         cp -af mmdb_china_ip_list/china_ip_list.mmdb publish/Country.mmdb
-        cp -af mmdb_china_ip_list/lite_china_ip_list.mmdb publish/lite/Country.mmdb
         cd publish
         git init
         git config --local user.name "${{ github.actor }}"
@@ -111,7 +109,7 @@ jobs:
         port: ${{ secrets.SFTP_PORT }}
         username: ${{ secrets.SFTP_USERNAME }}
         password: ${{ secrets.SFTP_PASSWORD }}
-        source: "publish/Country.mmdb,publish/lite/Country.mmdb,publish/version"
+        source: "publish/Country.mmdb,publish/version"
         target: "/www/mmdb"
         rm: true
         strip_components: 1
