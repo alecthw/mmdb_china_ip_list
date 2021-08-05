@@ -103,15 +103,3 @@ jobs:
         git commit -m "${{ env.RELEASE_NAME }}"
         git remote add origin "https://${{ github.actor }}:${{ secrets.PERSONAL_TOKEN }}@github.com/${{ github.repository }}"
         git push -f -u origin release
-
-    - name: Upload to server
-      uses: appleboy/scp-action@master
-      with:
-        host: ${{ secrets.SFTP_HOST }}
-        port: ${{ secrets.SFTP_PORT }}
-        username: ${{ secrets.SFTP_USERNAME }}
-        password: ${{ secrets.SFTP_PASSWORD }}
-        source: "publish/Country.mmdb,publish/lite/Country.mmdb,publish/version"
-        target: "/www/mmdb"
-        rm: true
-        strip_components: 1
