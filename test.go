@@ -87,6 +87,7 @@ func testAllIPDiff(mmdbFile1 string, mmdbFile2 string) {
 			iso2 := testIp(2, ip)
 			if iso1 != iso2 {
 				atomic.AddUint64(&count, 1)
+				log.Printf("ip: %v, before: %v, after: %v\n", ip, iso1, iso2)
 				res = append(res, fmt.Sprintf("ip: %v, before: %v, after: %v\n", ip, iso1, iso2))
 			}
 		}

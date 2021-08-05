@@ -52,6 +52,14 @@ func insertIps(strIps []string, data mmdbtype.DataType) {
 	}
 }
 
+func testResult(mmdbFile string) {
+	log.Print("Sleep 5 minutes before test ips.")
+	time.Sleep(time.Duration(5) * time.Second)
+
+	//testAllIPDiff("GeoLite2-Country.mmdb", out)
+	testSingleIp("1.4.9.249", mmdbFile)
+}
+
 func buildAll() {
 	log.Print("Start build all.")
 
@@ -86,10 +94,7 @@ func buildAll() {
 
 	log.Print("End build all.")
 
-	log.Print("Sleep 5 minutes before test ips.")
-	time.Sleep(time.Duration(5) * time.Second)
-
-	testAllIPDiff("GeoLite2-Country.mmdb", out)
+	testResult(out)
 }
 
 func buildLite() {
@@ -146,11 +151,12 @@ func buildLite() {
 		log.Fatal(err)
 	}
 
-	testAllIPDiff("GeoLite2-Country.mmdb", "lite_"+out)
+	log.Print("End build lite.")
 
-	//testSingleIp("1.0.1.0", "lite_china_ip_list.mmdb")
+	testResult("lite_" + out)
 }
 
 func main() {
+	buildAll()
 	buildLite()
 }
