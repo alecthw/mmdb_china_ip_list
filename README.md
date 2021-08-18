@@ -2,7 +2,7 @@
 
 [README](README.md) | [English Document](README_en.md)
 
-![Daily Build](https://github.com/alecthw/mmdb_china_ip_list/workflows/Daily%20Build/badge.svg)  ![Release Build](https://github.com/alecthw/mmdb_china_ip_list/workflows/Release%20Build/badge.svg)
+![Daily Build](https://github.com/alecthw/mmdb_china_ip_list/workflows/Daily%20Build/badge.svg)
 
 将`china_ip_list`和`纯真CN`发布的中国IP列表叠加到`MaxMind`官方社区版数据库中。
 
@@ -14,13 +14,14 @@
 
 ## 固定下载连接
 
-- Release build 仍然使用 perl 版本的 mmdb writer 构建。
-- Daily build 切换到 golang 版本的 mmdb writer 构建，并且完整版本是加载官方`GeoLite2-Country.mmdb`的基础上覆盖写入chinaIp，并非从零构建。Lite版本是从零构建，只写入了 iso_code 和 geoname_id，以达到缩小体积的目的
+- Release 和 Daily 均切换到使用 golang 版本的 mmdb writer 构建
+- 完整版本是加载官方`GeoLite2-Country.mmdb`的基础上，覆盖写入`china_ip_list`和`纯真CN`，并非从零构建
+- Lite版本是读取官方CSV数据从零构建，再覆盖写入`china_ip_list`和`纯真CN`，并且只写入了 iso_code 和 geoname_id，以达到缩小体积的目的
 
-| 文件 | release分支 (Daily) | CDN (Daily) | 阿里云 (Release) |
+| 文件 | release分支 | CDN | 阿里云 |
 | ------ | ------ | ------ | ------ |
 | Country.mmdb | [链接](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/Country.mmdb) | [链接](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/Country.mmdb) | [链接](http://www.ideame.top/mmdb/Country.mmdb) |
-| Country.mmdb lite | [链接](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/lite/Country.mmdb) | [链接](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/lite/Country.mmdb) | -- |
+| Country.mmdb lite | [链接](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/lite/Country.mmdb) | [链接](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/lite/Country.mmdb) | [链接](http://www.ideame.top/mmdb/lite/Country.mmdb) |
 | version | [链接](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/version) | [链接](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/version) | [链接](http://www.ideame.top/mmdb/version) |
 
 ## 简介
@@ -31,15 +32,15 @@
 
 ## 使用
 
-从[Release](https://github.com/alecthw/mmdb_china_ip_list/releases)下载生成的`china_ip_list.mmdb`。
+下载生成的`Country.mmdb`。
 
 使用方式同MaxMind官方API，可参考[指导文档](http://maxmind.github.io/MaxMind-DB/)。
 
 ### OpenClash中使用
 
-将`china_ip_list.mmdb`重命名为`Country.mmdb`，然后替换掉`/etc/openclash/Country.mmdb`，最后重启下clash即可。
+下载生成的`Country.mmdb`，然后替换掉`/etc/openclash/Country.mmdb`，最后重启下clash即可。
 
-## 构建
+## Perl版本构建指导
 
 需要`perl`环境，`MaxMind-DB-Writer-perl`的依赖和使用可以参考[官方文档](https://github.com/maxmind/MaxMind-DB-Writer-perl)。
 
