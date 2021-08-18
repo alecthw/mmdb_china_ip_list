@@ -19,11 +19,6 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
         run: |
           sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-          sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
-          sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php* android*
-          sudo -E apt-get -qq update
-          sudo -E apt-get -y autoremove --purge
-          sudo -E apt-get clean
 
       - name: Set Golang environment
         uses: actions/setup-go@v2
@@ -32,7 +27,7 @@ jobs:
 
       - name: Set env variables
         run: |
-          echo "RELEASE_NAME=Released on $(date +%Y%m%d)" >> $GITHUB_ENV
+          echo "RELEASE_NAME=Released on $(date +%Y%m%d%H%M)" >> $GITHUB_ENV
           echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
           echo "CUR_WEEK=$(date +%a)" >> $GITHUB_ENV
 
@@ -106,7 +101,7 @@ jobs:
           git commit -m "${{ env.RELEASE_NAME }}"
           git remote add origin "https://${{ github.actor }}:${{ secrets.PERSONAL_TOKEN }}@github.com/${{ github.repository }}"
           git push -f -u origin release
-          cp -af mmdb_china_ip_list/lite_china_ip_list.mmdb publish/Country-lite.mmdb
+          cp -af lite/Country.mmdb Country-lite.mmdb
 
       - name: Upload to server
         uses: appleboy/scp-action@master
