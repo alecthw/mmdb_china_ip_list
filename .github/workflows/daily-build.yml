@@ -116,7 +116,7 @@ jobs:
           strip_components: 1
 
       - name: Release and upload
-        if: env.CUR_WEEK == 'Wed'
+        if: env.CUR_WEEK == 'Sun'
         uses: softprops/action-gh-release@v1
         with:
           name: ${{ env.RELEASE_NAME }}
