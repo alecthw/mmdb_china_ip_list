@@ -58,6 +58,7 @@ func testResult(mmdbFile string) {
 
 	//testAllIPDiff("GeoLite2-Country.mmdb", out)
 	testSingleIp("1.4.9.249", mmdbFile)
+	testSingleIp("2400:bc40::1", mmdbFile)
 }
 
 func buildAll() {
@@ -79,8 +80,10 @@ func buildAll() {
 		log.Fatal(err)
 	}
 
+	insertIps(clangIpV4List, cnData)
 	insertIps(chunzhenIpList, cnData)
 	insertIps(chinaIpList, cnData)
+	insertIps(clangIpV6List, cnData)
 
 	fh, err := os.Create(filepath.Join(workDir, out))
 	if err != nil {
@@ -138,8 +141,10 @@ func buildLite() {
 		}
 	}
 
+	insertIps(clangIpV4List, liteCountryMap[1814991])
 	insertIps(chunzhenIpList, liteCountryMap[1814991])
 	insertIps(chinaIpList, liteCountryMap[1814991])
+	insertIps(clangIpV6List, liteCountryMap[1814991])
 
 	fh, err := os.Create(filepath.Join(workDir, "lite_"+out))
 	if err != nil {

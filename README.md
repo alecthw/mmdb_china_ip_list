@@ -4,19 +4,19 @@
 
 ![Daily Build](https://github.com/alecthw/mmdb_china_ip_list/workflows/Daily%20Build/badge.svg)
 
-将`china_ip_list`和`纯真CN`发布的中国IP列表叠加到`MaxMind`官方社区版数据库中。
+将`china_ip_list`、`纯真CN`和`Clang.CN`发布的中国IP列表叠加到`MaxMind`官方社区版数据库中。
 
 同时，这也是一个如何生成MaxMind数据库的示例。
 
 适合在网络分流工具中使用，对中国IP的匹配分流更为友好，兼容MaxMind DB的客户端！
 
-每周自动拉取新的MaxMind、china_ip_list和纯真CN数据库，并发布一个新的Release版本。
+每周自动拉取新的MaxMind、china_ip_list、纯真CN和Clang.cn数据库，并发布一个新的Release版本。
 
 ## 固定下载连接
 
 - Release 和 Daily 均切换到使用 golang 版本的 mmdb writer 构建
-- 完整版本是加载官方`GeoLite2-Country.mmdb`的基础上，覆盖写入`china_ip_list`和`纯真CN`，并非从零构建
-- Lite版本是读取官方CSV数据从零构建，再覆盖写入`china_ip_list`和`纯真CN`，并且只写入了 iso_code 和 geoname_id，以达到缩小体积的目的
+- 完整版本是加载官方`GeoLite2-Country.mmdb`的基础上，覆盖写入`china_ip_list`、`纯真CN`和`Clang.CN`，并非从零构建
+- Lite版本是直接从零构建，直接写入`china_ip_list`、`纯真CN`和`Clang.CN`，并且只写入了 iso_code 和 geoname_id，以达到缩小体积的目的
 
 | 文件 | release分支 | CDN | 阿里云 |
 | ------ | ------ | ------ | ------ |
@@ -28,7 +28,13 @@
 
 在网络分流工具(例如Clash)中使用[MaxMind](https://www.maxmind.com/en/home)的`GeoLite2-Country`对中国IP的匹配不是很友好，实际使用中出现不少问题。
 
-此项目，在MaxMind数据库的基础上，加入了[china_ip_list](https://raw.githubusercontent.com/17mon/china_ip_list/master/china_ip_list.txt)和[纯真CN数据库](https://raw.githubusercontent.com/metowolf/iplist/master/data/country/CN.txt)，使得对中国IP匹配得更为友好。
+此项目，在MaxMind数据库的基础上，加入了`china_ip_list`、`纯真CN`和`Clang.CN`的数据。ipv6使用`Clang.cn`的数据，使得对中国IP匹配得更为友好。
+
+由于构建mmdb，后者覆盖前者的特性，ip列表的插入顺序如下：
+
+1. [Clang.CN](https://ispip.clang.cn/)
+2. [纯真CN数据库](https://raw.githubusercontent.com/metowolf/iplist/master/data/country/CN.txt)
+3. [china_ip_list](https://raw.githubusercontent.com/17mon/china_ip_list/master/china_ip_list.txt)
 
 ## 使用
 

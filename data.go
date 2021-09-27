@@ -13,6 +13,8 @@ import (
 var (
 	chinaIpList    []string
 	chunzhenIpList []string
+	clangIpV4List []string
+	clangIpV6List []string
 
 	countryChina = mmdbtype.Map{
 		"iso_code":             mmdbtype.String("CN"),
@@ -55,6 +57,8 @@ var (
 func init() {
 	chunzhenIpList = readFileToStringArray("CN.txt")
 	chinaIpList = readFileToStringArray("china_ip_list.txt")
+	clangIpV4List = readFileToStringArray("all_cn.txt")
+	clangIpV6List = readFileToStringArray("all_cn_ipv6.txt")
 	initLiteCountryMap()
 }
 

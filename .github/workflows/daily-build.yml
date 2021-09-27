@@ -68,6 +68,12 @@ jobs:
           cd mmdb_china_ip_list
           curl -LR -o CN.txt "https://raw.githubusercontent.com/metowolf/iplist/master/data/special/china.txt"
 
+      - name: Download calng ip list
+        run: |
+          cd mmdb_china_ip_list
+          curl -LR -o all_cn.txt "https://ispip.clang.cn/all_cn.txt"
+          curl -LR -o all_cn_ipv6.txt "https://ispip.clang.cn/all_cn_ipv6.txt"
+
       - name: Build mmdb generator
         run: |
           cd mmdb_china_ip_list

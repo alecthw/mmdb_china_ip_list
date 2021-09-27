@@ -4,16 +4,20 @@
 
 ![Daily Build](https://github.com/alecthw/mmdb_china_ip_list/workflows/Daily%20Build/badge.svg)  ![Release Build](https://github.com/alecthw/mmdb_china_ip_list/workflows/Release%20Build/badge.svg)
 
-Overlap the Chinese IP list published by `china_ip_list` and `chunzhen CN` into the official community edition database of `MaxMind`.
+Overlap the Chinese IP list published by  `china_ip_list`, `chunzhen CN` and `Clang.CN` into the official community edition database of `MaxMind`.
 
 This is also an example of generating MaxMind Database!
 
 It's suitable for using in network offloading tools and compatible with MaxMind DB client!
 It is more friendly to Chinese IP matching and distribution.
 
-Automatically pull new MaxMind, china_ip_list and Chunzhen CN databases every week, and release a new Release version.
+Automatically pull new MaxMind, china_ip_list, Chunzhen CN and Clang.cn database every week, and release a new Release version.
 
 ## Fixed download connection
+
+- Both Release and Daily switch to build with the golang version of the mmdb writer
+- The full version is based on loading the official `GeoLite2-Country.mmdb`, overwriting `china_ip_list`, `chunzhen CN` and `Clang.CN`, not built from scratch
+- The Lite version is built from zero, written directly to `china_ip_list`, `chunzhen CN` and `Clang.CN`, and only iso_code and geoname_id are written to reduce the size.
 
 | 文件 | release分支 (Daily) | CDN (Daily) | 阿里云 (Release) |
 | ------ | ------ | ------ | ------ |
@@ -25,7 +29,13 @@ Automatically pull new MaxMind, china_ip_list and Chunzhen CN databases every we
 
  Is not very friendly to Chinese IP matching. So, there are many problems in actual using the `GeoLite2-Country` of [MaxMind](https://www.maxmind.com/en/home) in network tapping tools (such as Clash).
 
-This project, on the basis of the MaxMind database, added [china_ip_list](https://raw.githubusercontent.com/17mon/china_ip_list/master/china_ip_list.txt) and [Pure CN Database](https://raw.githubusercontent .com/metowolf/iplist/master/data/country/CN.txt), making it more friendly to Chinese IP matching.
+This project, on the basis of the MaxMind database, added `china_ip_list`, `chunzhen CN` and `Clang.CN`, making it more friendly to Chinese IP matching.
+
+Because the mmdb is built, the latter overrides the former, and the order of inserting the ip list is as follows:
+
+1. [Clang.CN](https://ispip.clang.cn/)
+2. [chunzhen CN](https://raw.githubusercontent .com/metowolf/iplist/master/data/country/CN.txt)
+3. [china_ip_list](https://raw.githubusercontent.com/17mon/china_ip_list/master/china_ip_list.txt)
 
 ## How to use
 
@@ -39,7 +49,7 @@ Rename `china_ip_list.mmdb` to `Country.mmdb`, then replace `/etc/openclash/Coun
 
 You can edit the `update url` in update script and enable auto update.
 
-## Build mmdb
+## Build mmdb by perl
 
 The `perl` environment is required. For the dependency and use of `MaxMind-DB-Writer-perl`, please refer to [Official Document](https://github.com/maxmind/MaxMind-DB-Writer-perl).
 
