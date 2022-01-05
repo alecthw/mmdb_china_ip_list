@@ -135,6 +135,10 @@ func buildLite() {
 
 		geoNameId, _ := strconv.ParseUint(value[1], 10, 32)
 
+		if geoNameId == 1814991 {
+			continue
+		}
+
 		err = writer.Insert(ipNet, liteCountryMap[geoNameId])
 		if err != nil {
 			log.Fatalf("fail to insert to writer %v\n", err)
