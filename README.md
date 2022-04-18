@@ -16,7 +16,7 @@
 
 - Release 和 Daily 均切换到使用 golang 版本的 mmdb writer 构建
 - 完整版本是加载官方`GeoLite2-Country.mmdb`的基础上，覆盖写入`china_ip_list`、`纯真CN`和`Clang.CN`，并非从零构建
-- Lite版本是直接从零构建，读取官方CSV文件并且跳过了CN的记录，然后再写入`china_ip_list`、`纯真CN`和`Clang.CN`，并且仅写入了 iso_code 和 geoname_id以达到缩小体积的目的
+- Lite版本是直接从零构建，包含**_IPv4数据和CN的IPv6数据_**，读取官方CSV文件并且跳过了CN的记录，然后再写入`china_ip_list`、`纯真CN`和`Clang.CN`，并且仅写入了`iso_code`和`geoname_id`以达到缩小体积的目的
 
 | 文件 | release分支 | CDN | 阿里云 |
 | ------ | ------ | ------ | ------ |
