@@ -3,8 +3,11 @@ package main
 import (
 	"bufio"
 	"encoding/csv"
+	"fmt"
+	"github.com/PuerkitoBio/goquery"
 	"github.com/maxmind/mmdbwriter/mmdbtype"
 	"log"
+	"net/http"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -13,8 +16,12 @@ import (
 var (
 	chinaIpList    []string
 	chunzhenIpList []string
+
 	clangIpV4List []string
 	clangIpV6List []string
+
+	aliAS37963IpV4List []string
+	aliAS37963IpV6List []string
 
 	countryChina = mmdbtype.Map{
 		"iso_code":             mmdbtype.String("CN"),
@@ -60,6 +67,7 @@ func init() {
 	clangIpV4List = readFileToStringArray("all_cn.txt")
 	clangIpV6List = readFileToStringArray("all_cn_ipv6.txt")
 	initLiteCountryMap()
+	initAliAS37963()
 }
 
 func readFileToStringArray(filePath string) []string {
@@ -117,4 +125,35 @@ func initLiteCountryMap() {
 
 	//content, _ := json.Marshal(liteCountryMap)
 	//log.Printf("%v\n", string(content))
+}
+
+func initAliAS37963() {
+	res, err := http.Get("https://whois.ipip.net/AS37963")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode != 200 {
+		log.Fatalf("status code error: %d %s", res.StatusCode, res.Status)
+	}
+
+	// Load the HTML document
+	doc, err := goquery.NewDocumentFromReader(res.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	doc.Find("#pills-ipv4 table tr td a").Each(func(i int, s *goquery.Selection) {
+		ip := s.Text()
+		aliAS37963IpV4List = append(aliAS37963IpV4List, ip)
+		fmt.Printf("Num %d: %s\n", i, ip)
+	})
+
+	doc.Find("#pills-ipv6 table tr td a").Each(func(i int, s *goquery.Selection) {
+		// For each item found, get the title
+		ip := s.Text()
+		aliAS37963IpV6List = append(aliAS37963IpV6List, ip)
+		fmt.Printf("Num %d: %s\n", i, ip)
+	})
 }

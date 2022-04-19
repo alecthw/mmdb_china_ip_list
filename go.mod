@@ -3,7 +3,9 @@ module mmdb-china
 go 1.16
 
 require (
-	github.com/maxmind/mmdbwriter v0.0.0-20210616205632-85bfe8b3805f // indirect
-	github.com/oschwald/geoip2-golang v1.5.0 // indirect
-	gopkg.in/yaml.v2 v2.2.2 // indirect
+	github.com/PuerkitoBio/goquery v1.8.0 // indirect
+	github.com/maxmind/mmdbwriter v0.0.0-20220316141846-bda76e41dd33 // indirect
+	github.com/oschwald/geoip2-golang v1.7.0 // indirect
+	github.com/pkg/profile v1.6.0 // indirect
+	gopkg.in/yaml.v2 v2.4.0 // indirect
 )

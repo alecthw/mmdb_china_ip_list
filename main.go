@@ -80,10 +80,17 @@ func buildAll() {
 		log.Fatal(err)
 	}
 
-	insertIps(clangIpV4List, cnData)
-	insertIps(chunzhenIpList, cnData)
+	// 1
 	insertIps(chinaIpList, cnData)
 	insertIps(clangIpV6List, cnData)
+
+	// 2
+	insertIps(clangIpV4List, cnData)
+	insertIps(chunzhenIpList, cnData)
+
+	// 3
+	insertIps(aliAS37963IpV4List, cnData)
+	insertIps(aliAS37963IpV6List, cnData)
 
 	fh, err := os.Create(filepath.Join(workDir, out))
 	if err != nil {
@@ -148,15 +155,21 @@ func buildLite() {
 		},
 	)
 
-	// mindmax data
+	// 0 mindmax data
 	insertCsvSkipCN("GeoLite2-Country-Blocks-IPv4.csv")
 	//insertCsvSkipCN("GeoLite2-Country-Blocks-IPv6.csv")
 
+	// 1
+	insertIps(chinaIpList, liteCountryMap[1814991])
+	insertIps(clangIpV6List, liteCountryMap[1814991])
+
+	// 2
 	insertIps(clangIpV4List, liteCountryMap[1814991])
 	insertIps(chunzhenIpList, liteCountryMap[1814991])
-	insertIps(chinaIpList, liteCountryMap[1814991])
 
-	insertIps(clangIpV6List, liteCountryMap[1814991])
+	// 3
+	insertIps(aliAS37963IpV4List, liteCountryMap[1814991])
+	insertIps(aliAS37963IpV6List, liteCountryMap[1814991])
 
 	fh, err := os.Create(filepath.Join(workDir, "lite_"+out))
 	if err != nil {

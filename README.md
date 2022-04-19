@@ -4,7 +4,7 @@
 
 ![Daily Build](https://github.com/alecthw/mmdb_china_ip_list/workflows/Daily%20Build/badge.svg)
 
-将`china_ip_list`、`纯真CN`和`Clang.CN`发布的中国IP列表叠加到`MaxMind`官方社区版数据库中。
+将`china_ip_list`、`纯真CN`、`Clang.CN`和`ali AS37963`发布的中国IP列表叠加到`MaxMind`官方社区版数据库中。
 
 同时，这也是一个如何生成MaxMind数据库的示例。
 

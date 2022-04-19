@@ -4,7 +4,7 @@
 
 ![Daily Build](https://github.com/alecthw/mmdb_china_ip_list/workflows/Daily%20Build/badge.svg)  ![Release Build](https://github.com/alecthw/mmdb_china_ip_list/workflows/Release%20Build/badge.svg)
 
-Overlap the Chinese IP list published by  `china_ip_list`, `chunzhen CN` and `Clang.CN` into the official community edition database of `MaxMind`.
+Overlap the Chinese IP list published by  `china_ip_list`, `chunzhen CN`, `Clang.CN` and `ali AS37963` into the official community edition database of `MaxMind`.
 
 This is also an example of generating MaxMind Database!
 
