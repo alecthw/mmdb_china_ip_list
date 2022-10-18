@@ -11,7 +11,7 @@ use Data::Dumper;
 
 # prepare continent and country data ---- Begin ----
 
-my @mm_langs = ("de", "ru", "pt-BR", "ja", "en", "fr", 'zh-CN', "es");
+my @mm_langs = ('de', 'ru', 'pt-BR', 'ja', 'en', 'fr', 'zh-CN', 'es');
 
 my @mm_continent_codes = (6255146, 6255147, 6255148, 6255149, 6255150, 6255151, 6255152);
 my %mm_continentid2name_map = (
@@ -159,7 +159,7 @@ sub mm_country_map_insert{
 }
 
 sub build_country_map{
-    my $dir = dir("./mindmax");
+    my $dir = dir('./mindmax');
 
     # 标记第一次构建，后续的构建仅添加不同语言的名称
     my $first_build = 1;
@@ -168,12 +168,12 @@ sub build_country_map{
         $file_name .= $mm_lang ;
         $file_name .= '.csv' ;
 
-        # print "$file_name\n";
+        # print '$file_name\n';
 
         my $file = $dir->file($file_name);
         my $content = $file->slurp();
         my $file_handle = $file->openr();
-        binmode($file_handle, ":utf8");
+        binmode($file_handle, ':utf8');
         while( my $line = $file_handle->getline() ) {
             $line =~ s/\"//g;
             mm_country_map_insert($line, $first_build);
@@ -220,17 +220,17 @@ my $tree = MaxMind::DB::Writer::Tree->new(
     ip_version                  => 6,
     record_size                 => 24,
     database_type               => 'GeoLite2-Country',
-    languages                   => ['en'],
+    languages                   => ['de', 'ru', 'pt-BR', 'ja', 'en', 'fr', 'zh-CN', 'es'],
     description                 => { en => 'GeoLite2 Country database' },
     map_key_type_callback       => sub { $types{ $_[0] } },
 );
 
 sub insert_maxmind_ip{
-    my $dir = dir("./mindmax");
+    my $dir = dir('./mindmax');
     my $file = $dir->file($_[0]);
     my $content = $file->slurp();
     my $file_handle = $file->openr();
-    binmode($file_handle, ":utf8");
+    binmode($file_handle, ':utf8');
     while( my $line = $file_handle->getline() ) {
         my @values = split(',', $line);
 
@@ -269,7 +269,7 @@ sub insert_maxmind_ip{
                 $data -> {traits} -> {is_satellite_provider} = 1;
             }
 
-            # print "$network\n";
+            # print '$network\n';
             # print Dumper($data);
 
             $tree->insert_network(
@@ -281,11 +281,11 @@ sub insert_maxmind_ip{
 }
 
 sub insert_china_ip{
-    my $dir = dir(".");
+    my $dir = dir('.');
     my $file = $dir->file($_[0]);
     my $content = $file->slurp();
     my $file_handle = $file->openr();
-    binmode($file_handle, ":utf8");
+    binmode($file_handle, ':utf8');
     while( my $line = $file_handle->getline() ) {
         my $data = {};
         $data -> {continent} = $mm_continent_map{'AS'};

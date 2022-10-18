@@ -3,14 +3,15 @@ package main
 import (
 	"encoding/csv"
 	"flag"
-	"github.com/maxmind/mmdbwriter"
-	"github.com/maxmind/mmdbwriter/mmdbtype"
 	"log"
 	"net"
 	"os"
 	"path/filepath"
 	"strconv"
 	"time"
+
+	"github.com/maxmind/mmdbwriter"
+	"github.com/maxmind/mmdbwriter/mmdbtype"
 )
 
 var (
@@ -70,6 +71,7 @@ func buildAll() {
 			mmdbwriter.Options{
 				DatabaseType: "GeoIP2-Country",
 				RecordSize:   24,
+				Languages:    []string{"de", "ru", "pt-BR", "ja", "en", "fr", "zh-CN", "es"},
 			},
 		)
 	} else {
@@ -148,10 +150,11 @@ func buildLite() {
 	log.Print("Start build lite.")
 
 	var err error
-	writer, err = mmdbwriter.New(
+	writer, _ = mmdbwriter.New(
 		mmdbwriter.Options{
 			DatabaseType: "GeoIP2-Country",
 			RecordSize:   24,
+			Languages:    []string{"zh-CN"},
 		},
 	)
 
