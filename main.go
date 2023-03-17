@@ -59,7 +59,7 @@ func testResult(mmdbFile string) {
 
 	//testAllIPDiff("GeoLite2-Country.mmdb", out)
 	testSingleIp("1.4.9.249", mmdbFile)
-	testSingleIp("2400:bc40::1", mmdbFile)
+	testSingleIp("2400:da00::1", mmdbFile)
 }
 
 func buildAll() {

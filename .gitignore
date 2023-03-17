@@ -11,4 +11,6 @@ china_ip_list.txt
 CN.txt
 all_cn.txt
 all_cn_ipv6.txt
+*.list
+
 version

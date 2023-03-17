@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"encoding/csv"
+	"strings"
 
 	// "fmt"
 	// "github.com/PuerkitoBio/goquery"
@@ -25,6 +26,8 @@ var (
 
 	aliAS37963IpV4List []string
 	aliAS37963IpV6List []string
+
+	cloudCNList []string
 
 	countryChina = mmdbtype.Map{
 		"iso_code":             mmdbtype.String("CN"),
@@ -69,6 +72,9 @@ func init() {
 	chinaIpList = readFileToStringArray("china_ip_list.txt")
 	clangIpV4List = readFileToStringArray("all_cn.txt")
 	clangIpV6List = readFileToStringArray("all_cn_ipv6.txt")
+
+	cloudCNList = readIpsFromClashList("CloudCN.list")
+
 	initLiteCountryMap()
 	// initAliAS37963()
 }
@@ -85,6 +91,29 @@ func readFileToStringArray(filePath string) []string {
 
 	for scanner.Scan() {
 		strList = append(strList, scanner.Text())
+	}
+
+	return strList
+}
+
+func readIpsFromClashList(filePath string) []string {
+	var strList []string
+	fh, err := os.Open(filepath.Join(workDir, filePath))
+	if err != nil {
+		log.Printf("fail to open %s\n", err)
+		return strList
+	}
+	scanner := bufio.NewScanner(fh)
+	scanner.Split(bufio.ScanLines)
+
+	for scanner.Scan() {
+		clashRule := scanner.Text()
+
+		if strings.HasPrefix(clashRule, "IP-CIDR,") {
+			tmp := strings.Replace(clashRule, "IP-CIDR,", "", -1)
+			ipCidr := strings.Replace(tmp, ",no-resolve", "", -1)
+			strList = append(strList, ipCidr)
+		}
 	}
 
 	return strList
