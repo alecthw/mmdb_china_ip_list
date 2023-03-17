@@ -19,11 +19,11 @@ Automatically pull new MaxMind, china_ip_list, Chunzhen CN and Clang.cn database
 - The full version is based on loading the official `GeoLite2-Country.mmdb`, overwriting `china_ip_list`, `chunzhen CN` and `Clang.CN`, not built from scratch
 - The Lite version is built from zero contains **_IPv4 Data & CN's IPv6 Data_**, written directly to `china_ip_list`, `chunzhen CN` and `Clang.CN`, and only iso_code and geoname_id are written to reduce the size.
 
-| 文件 | release分支 (Daily) | CDN (Daily) | 阿里云 (Release) |
-| ------ | ------ | ------ | ------ |
-| Country.mmdb | [link](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/Country.mmdb) | [link](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/Country.mmdb) | [link](http://www.ideame.top/mmdb/Country.mmdb) |
-| Country.mmdb lite | [link](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/lite/Country.mmdb) | [link](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/lite/Country.mmdb) | -- |
-| version | [link](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/version) | [link](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/version) | [link](http://www.ideame.top/mmdb/version) |
+| File | release (Daily) | CDN (Daily) |
+| ------ | ------ | ------ |
+| Country.mmdb | [link](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/Country.mmdb) | [link](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/Country.mmdb) |
+| Country.mmdb lite | [link](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/lite/Country.mmdb) | [link](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/lite/Country.mmdb) |
+| version | [link](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/version) | [link](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/version) |
 
 ## Introduction
 

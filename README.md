@@ -16,14 +16,16 @@
 ## 固定下载连接
 
 - Release 和 Daily 均切换到使用 golang 版本的 mmdb writer 构建
-- 完整版本是加载官方`GeoLite2-Country.mmdb`的基础上，覆盖写入`china_ip_list`、`纯真CN`和`Clang.CN`，并非从零构建
-- Lite版本是直接从零构建，包含**_IPv4数据和CN的IPv6数据_**，读取官方CSV文件并且跳过了CN的记录，然后再写入`china_ip_list`、`纯真CN`和`Clang.CN`，并且仅写入了`iso_code`和`geoname_id`以达到缩小体积的目的
+- 完整版本包含`官方全部非CN的IPv4数据和IPv6数据`，然后写入`china_ip_list`、`纯真CN`和`Clang.CN`。
+- Lite版本仅包含`官方非CN的IPv4数据`和`CN的IPv6数据`，读取官方CSV文件并且跳过了CN的记录，然后再写入`china_ip_list`、`纯真CN`和`Clang.CN`，并且仅写入了`iso_code`和`geoname_id`以达到缩小体积的目的
 
-| 文件 | release分支 | CDN | 阿里云 |
-| ------ | ------ | ------ | ------ |
-| Country.mmdb | [链接](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/Country.mmdb) | [链接](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/Country.mmdb) | [链接](http://www.ideame.top/mmdb/Country.mmdb) |
-| Country.mmdb lite | [链接](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/lite/Country.mmdb) | [链接](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/lite/Country.mmdb) | [链接](http://www.ideame.top/mmdb/lite/Country.mmdb) |
-| version | [链接](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/version) | [链接](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/version) | [链接](http://www.ideame.top/mmdb/version) |
+| 文件 | release分支 | CDN |
+| ------ | ------ | ------ |
+| Country.mmdb | [链接](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/Country.mmdb) | [链接](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/Country.mmdb) |
+| Country.mmdb lite | [链接](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/lite/Country.mmdb) | [链接](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/lite/Country.mmdb) |
+| version | [链接](https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/version) | [链接](https://cdn.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/version) |
+
+`不好意思，阿里云到期了续不起，国内镜像暂时先下了，优先用CDN吧！`
 
 ## 简介
 

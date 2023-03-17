@@ -82,7 +82,7 @@ jobs:
       - name: Generate mmdb file
         run: |
           cd mmdb_china_ip_list
-          ./mmdb_gen
+          ./mmdb_gen -new
 
       - name: Generate version file
         run: |

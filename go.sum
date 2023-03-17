@@ -1,12 +1,15 @@
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/maxmind/mmdbwriter v0.0.0-20220830183856-fffdfa44ff0b h1:wkAKuhM2q+6rlDxWzzDZUU1IkyHJvO5ejtQaJLjHWxg=
 github.com/maxmind/mmdbwriter v0.0.0-20220830183856-fffdfa44ff0b/go.mod h1:q7YpNxnTt06LyrYKVxcZSIITZkfnJ/+XMU+iXxNE778=
+github.com/maxmind/mmdbwriter v0.0.0-20230315153935-be21eaf06f90 h1:fIV2chPRjfSSJZJPF02UnmEhfampCNXPSDh8/JVCexM=
+github.com/maxmind/mmdbwriter v0.0.0-20230315153935-be21eaf06f90/go.mod h1:OTBr647IJpdisFRbIxLiEFMVL/lcPrmwxsvEIa/RQ9k=
 github.com/oschwald/geoip2-golang v1.8.0 h1:KfjYB8ojCEn/QLqsDU0AzrJ3R5Qa9vFlx3z6SLNcKTs=
 github.com/oschwald/geoip2-golang v1.8.0/go.mod h1:R7bRvYjOeaoenAp9sKRS8GX5bJWcZ0laWO5+DauEktw=
 github.com/oschwald/maxminddb-golang v1.10.0 h1:Xp1u0ZhqkSuopaKmk1WwHtjF0H9Hd9181uj2MQ5Vndg=
 github.com/oschwald/maxminddb-golang v1.10.0/go.mod h1:Y2ELenReaLAZ0b400URyGwvYxHV1dLIxBuyOsyYjHK0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/stretchr/testify v1.8.0 h1:pSgiaMZlXftHpm5L7V1+rVB+AZJydKsMxsQBIJw4PKk=
+github.com/stretchr/testify v1.8.2 h1:+h33VjcLVPDHtOdpUCuF+7gSuG3yGIftsP1YvFihtJ8=
 go4.org/netipx v0.0.0-20220925034521-797b0c90d8ab h1:+yW1yrZ09EYNu1spCUOHBBNRbrLnfmutwyhbhCv3b6Q=
 go4.org/netipx v0.0.0-20220925034521-797b0c90d8ab/go.mod h1:tgPU4N2u9RByaTN3NC2p9xOzyFpte4jYwsIIRF7XlSc=
 golang.org/x/sys v0.5.0 h1:MUK/U/4lj1t1oPg0HfuXDN/Z1wv31ZJ/YcPiGccS4DU=

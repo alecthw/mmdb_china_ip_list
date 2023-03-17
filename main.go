@@ -82,6 +82,12 @@ func buildAll() {
 		log.Fatal(err)
 	}
 
+	if isNew {
+		// 0 mindmax data
+		insertCsvSkipCN("GeoLite2-Country-Blocks-IPv4.csv")
+		insertCsvSkipCN("GeoLite2-Country-Blocks-IPv6.csv")
+	}
+
 	// 1
 	insertIps(chinaIpList, cnData)
 	insertIps(clangIpV6List, cnData)
