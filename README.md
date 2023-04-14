@@ -195,7 +195,7 @@ network->字段
 
 ## 感谢
 
-- Jetbrains Open Source Development License
+- [Jetbrains Open Source Development License](https://jb.gg/OpenSourceSupport)
 
 - [GeoIP MaxMind DB 生成指南](https://blog.csdn.net/openex/article/details/53487465)
 

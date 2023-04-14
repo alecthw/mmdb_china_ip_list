@@ -1,13 +1,14 @@
 name: Daily Build
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: 0 19 * * 0,2,4
-  push:
-    branches:
-      - master
-    paths:
-      - '.github/start'
+  # push:
+  #   branches:
+  #     - master
+  #   paths:
+  #     - '.github/start'
 
 jobs:
   build:
