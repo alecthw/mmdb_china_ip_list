@@ -196,6 +196,8 @@ network-field
 
 ## Thanks
 
+- Jetbrains Open Source Development License
+
 - [GeoIP MaxMind DB 生成指南](https://blog.csdn.net/openex/article/details/53487465)
 
 - [GeoLite Mirror | Sukka](https://geolite.clash.dev/)
