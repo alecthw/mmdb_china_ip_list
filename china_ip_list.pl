@@ -302,7 +302,7 @@ sub insert_china_ip{
 insert_maxmind_ip('GeoLite2-Country-Blocks-IPv4.csv');
 insert_maxmind_ip('GeoLite2-Country-Blocks-IPv6.csv');
 insert_china_ip('china_ip_list.txt');
-insert_china_ip('CN.txt');
+insert_china_ip('chunzhen_cn.txt');
 
 open my $fh, '>:raw', 'china_ip_list.mmdb';
 $tree->write_tree($fh);

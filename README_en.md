@@ -34,7 +34,7 @@ This project, on the basis of the MaxMind database, added `china_ip_list`, `chun
 Because the mmdb is built, the latter overrides the former, and the order of inserting the ip list is as follows:
 
 1. [Clang.CN](https://ispip.clang.cn/)
-2. [chunzhen CN](https://raw.githubusercontent .com/metowolf/iplist/master/data/country/CN.txt)
+2. [chunzhen CN](https://raw.githubusercontent.com/metowolf/iplist/master/data/special/china.txt)
 3. [china_ip_list](https://raw.githubusercontent.com/17mon/china_ip_list/master/china_ip_list.txt)
 
 ## How to use
@@ -84,7 +84,7 @@ mv GeoLite2* mindmax
 curl -LR -o china_ip_list.txt "https://raw.githubusercontent.com/17mon/china_ip_list/master/china_ip_list.txt"
 
 # Download Chunzhen CN
-curl -LR -o CN.txt "https://raw.githubusercontent.com/metowolf/iplist/master/data/special/china.txt"
+curl -LR -o chunzhen_cn.txt "https://raw.githubusercontent.com/metowolf/iplist/master/data/special/china.txt"
 
 # Generate mmdb
 perl china_ip_list.pl

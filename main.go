@@ -25,7 +25,7 @@ var (
 func init() {
 	dir, _ := filepath.Abs(filepath.Dir(os.Args[0]))
 	flag.BoolVar(&isNew, "new", false, "Do not re using official database and create new mmdb. Default false.")
-	flag.StringVar(&workDir, "dir", dir, "The directory which contains china_ip_list.txt and CN.txt. Default executable file directory.")
+	flag.StringVar(&workDir, "dir", dir, "The directory which contains ip list file. Default executable file directory.")
 	flag.StringVar(&out, "out", "china_ip_list.mmdb", "The output mmdb file name. Default china_ip_list.mmdb.")
 	flag.Parse()
 }
@@ -60,59 +60,6 @@ func testResult(mmdbFile string) {
 	//testAllIPDiff("GeoLite2-Country.mmdb", out)
 	testSingleIp("1.4.9.249", mmdbFile)
 	testSingleIp("2400:da00::1", mmdbFile)
-}
-
-func buildAll() {
-	log.Print("Start build all.")
-
-	var err error
-	if isNew {
-		writer, err = mmdbwriter.New(
-			mmdbwriter.Options{
-				DatabaseType: "GeoIP2-Country",
-				RecordSize:   24,
-				Languages:    []string{"de", "ru", "pt-BR", "ja", "en", "fr", "zh-CN", "es"},
-			},
-		)
-	} else {
-		writer, err = mmdbwriter.Load(filepath.Join(workDir, "GeoLite2-Country.mmdb"), mmdbwriter.Options{})
-	}
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	if isNew {
-		// 0 mindmax data
-		insertCsvSkipCN("GeoLite2-Country-Blocks-IPv4.csv")
-		insertCsvSkipCN("GeoLite2-Country-Blocks-IPv6.csv")
-	}
-
-	// 1
-	insertIps(chinaIpList, cnData)
-	insertIps(clangIpV6List, cnData)
-
-	// 2
-	insertIps(clangIpV4List, cnData)
-	insertIps(chunzhenIpList, cnData)
-
-	// 3
-	insertIps(aliAS37963IpV4List, cnData)
-	insertIps(aliAS37963IpV6List, cnData)
-
-	fh, err := os.Create(filepath.Join(workDir, out))
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	_, err = writer.WriteTo(fh)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	log.Print("End build all.")
-
-	testResult(out)
 }
 
 func insertCsvSkipCN(csvName string) {
@@ -152,6 +99,63 @@ func insertCsvSkipCN(csvName string) {
 	}
 }
 
+func buildAll() {
+	log.Print("Start build all.")
+
+	var err error
+	if isNew {
+		writer, err = mmdbwriter.New(
+			mmdbwriter.Options{
+				DatabaseType: "GeoIP2-Country",
+				RecordSize:   24,
+				Languages:    []string{"de", "ru", "pt-BR", "ja", "en", "fr", "zh-CN", "es"},
+			},
+		)
+	} else {
+		writer, err = mmdbwriter.Load(filepath.Join(workDir, "GeoLite2-Country.mmdb"), mmdbwriter.Options{})
+	}
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if isNew {
+		// 0 mindmax data
+		insertCsvSkipCN("GeoLite2-Country-Blocks-IPv4.csv")
+		insertCsvSkipCN("GeoLite2-Country-Blocks-IPv6.csv")
+	}
+
+	// 1
+	insertIps(chinaIpList, cnData)
+	insertIps(clangIpV6List, cnData)
+
+	// 2
+	insertIps(clangIpV4List, cnData)
+	insertIps(chunzhenIpList, cnData)
+
+	// 3
+	insertIps(chinaOperatorIpV4List, cnData)
+	insertIps(chinaOperatorIpV6List, cnData)
+
+	// 4
+	insertIps(cloudCNListV4List, cnData)
+	insertIps(cloudCNListV6List, cnData)
+
+	fh, err := os.Create(filepath.Join(workDir, out))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	_, err = writer.WriteTo(fh)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	log.Print("End build all.")
+
+	testResult(out)
+}
+
 func buildLite() {
 	log.Print("Start build lite.")
 
@@ -165,8 +169,8 @@ func buildLite() {
 	)
 
 	// 0 mindmax data
-	insertCsvSkipCN("GeoLite2-Country-Blocks-IPv4.csv")
-	//insertCsvSkipCN("GeoLite2-Country-Blocks-IPv6.csv")
+	// insertCsvSkipCN("GeoLite2-Country-Blocks-IPv4.csv")
+	// insertCsvSkipCN("GeoLite2-Country-Blocks-IPv6.csv")
 
 	// 1
 	insertIps(chinaIpList, liteCountryMap[1814991])
@@ -177,8 +181,12 @@ func buildLite() {
 	insertIps(chunzhenIpList, liteCountryMap[1814991])
 
 	// 3
-	insertIps(aliAS37963IpV4List, liteCountryMap[1814991])
-	insertIps(aliAS37963IpV6List, liteCountryMap[1814991])
+	insertIps(chinaOperatorIpV4List, liteCountryMap[1814991])
+	insertIps(chinaOperatorIpV6List, liteCountryMap[1814991])
+
+	// 4
+	insertIps(cloudCNListV4List, cnData)
+	insertIps(cloudCNListV6List, cnData)
 
 	fh, err := os.Create(filepath.Join(workDir, "lite_"+out))
 	if err != nil {

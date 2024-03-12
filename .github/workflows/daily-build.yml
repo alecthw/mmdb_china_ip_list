@@ -24,7 +24,7 @@ jobs:
       - name: Set Golang environment
         uses: actions/setup-go@v5
         with:
-          go-version: 'stable'
+          go-version: "stable"
 
       - name: Set env variables
         run: |
@@ -67,7 +67,7 @@ jobs:
       - name: Download chunzhen cn list
         run: |
           cd mmdb_china_ip_list
-          curl -LR -o CN.txt "https://raw.githubusercontent.com/metowolf/iplist/master/data/special/china.txt"
+          curl -LR -o chunzhen_cn.txt "https://raw.githubusercontent.com/metowolf/iplist/master/data/special/china.txt"
 
       - name: Download calng ip list
         run: |
@@ -75,10 +75,16 @@ jobs:
           curl -LR -o all_cn.txt "https://ispip.clang.cn/all_cn.txt"
           curl -LR -o all_cn_ipv6.txt "https://ispip.clang.cn/all_cn_ipv6.txt"
 
+      - name: Download china-operator-ip list
+        run: |
+          cd mmdb_china_ip_list
+          curl -LR -o china_operator_ipv4.txt "https://raw.githubusercontent.com/gaoyifan/china-operator-ip/ip-lists/china.txt"
+          curl -LR -o china_operator_ipv6.txt "https://raw.githubusercontent.com/gaoyifan/china-operator-ip/ip-lists/china6.txt"
+
       - name: Download china cloud ip
         run: |
           cd mmdb_china_ip_list
-          curl -LR -o CloudCN.list "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Cloud/CloudCN/CloudCN.list"
+          curl -LR -o cloud_cn.list "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Cloud/CloudCN/CloudCN.list"
 
       - name: Build mmdb generator
         run: |

@@ -5,13 +5,10 @@ import (
 	"encoding/csv"
 	"strings"
 
-	// "fmt"
-	// "github.com/PuerkitoBio/goquery"
 	"log"
 
 	"github.com/maxmind/mmdbwriter/mmdbtype"
 
-	// "net/http"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -24,10 +21,11 @@ var (
 	clangIpV4List []string
 	clangIpV6List []string
 
-	aliAS37963IpV4List []string
-	aliAS37963IpV6List []string
+	cloudCNListV4List []string
+	cloudCNListV6List []string
 
-	cloudCNList []string
+	chinaOperatorIpV4List []string
+	chinaOperatorIpV6List []string
 
 	countryChina = mmdbtype.Map{
 		"iso_code":             mmdbtype.String("CN"),
@@ -68,15 +66,22 @@ var (
 )
 
 func init() {
-	chunzhenIpList = readFileToStringArray("CN.txt")
+	chunzhenIpList = readFileToStringArray("chunzhen_cn.txt")
 	chinaIpList = readFileToStringArray("china_ip_list.txt")
 	clangIpV4List = readFileToStringArray("all_cn.txt")
 	clangIpV6List = readFileToStringArray("all_cn_ipv6.txt")
-
-	cloudCNList = readIpsFromClashList("CloudCN.list")
+	chinaOperatorIpV4List = readFileToStringArray("china_operator_ipv4.txt")
+	chinaOperatorIpV6List = readFileToStringArray("china_operator_ipv6.txt")
 
 	initLiteCountryMap()
-	// initAliAS37963()
+	initCloudCN()
+
+	log.Printf("chunzhenIpList size, %d\n", len(chunzhenIpList))
+	log.Printf("chinaIpList size, %d\n", len(chinaIpList))
+	log.Printf("clangIpV4List size, %d\n", len(clangIpV4List))
+	log.Printf("clangIpV6List size, %d\n", len(clangIpV6List))
+	log.Printf("chinaOperatorIpV4List size, %d\n", len(chinaOperatorIpV4List))
+	log.Printf("chinaOperatorIpV6List size, %d\n", len(chinaOperatorIpV6List))
 }
 
 func readFileToStringArray(filePath string) []string {
@@ -91,29 +96,6 @@ func readFileToStringArray(filePath string) []string {
 
 	for scanner.Scan() {
 		strList = append(strList, scanner.Text())
-	}
-
-	return strList
-}
-
-func readIpsFromClashList(filePath string) []string {
-	var strList []string
-	fh, err := os.Open(filepath.Join(workDir, filePath))
-	if err != nil {
-		log.Printf("fail to open %s\n", err)
-		return strList
-	}
-	scanner := bufio.NewScanner(fh)
-	scanner.Split(bufio.ScanLines)
-
-	for scanner.Scan() {
-		clashRule := scanner.Text()
-
-		if strings.HasPrefix(clashRule, "IP-CIDR,") {
-			tmp := strings.Replace(clashRule, "IP-CIDR,", "", -1)
-			ipCidr := strings.Replace(tmp, ",no-resolve", "", -1)
-			strList = append(strList, ipCidr)
-		}
 	}
 
 	return strList
@@ -159,33 +141,26 @@ func initLiteCountryMap() {
 	//log.Printf("%v\n", string(content))
 }
 
-// func initAliAS37963() {
-// 	res, err := http.Get("https://whois.ipip.net/AS37963")
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-// 	defer res.Body.Close()
+func initCloudCN() {
+	fh, err := os.Open(filepath.Join(workDir, "cloud_cn.list"))
+	if err != nil {
+		log.Printf("fail to open %s\n", err)
+		return
+	}
+	scanner := bufio.NewScanner(fh)
+	scanner.Split(bufio.ScanLines)
 
-// 	if res.StatusCode != 200 {
-// 		log.Fatalf("status code error: %d %s", res.StatusCode, res.Status)
-// 	}
+	for scanner.Scan() {
+		clashRule := scanner.Text()
 
-// 	// Load the HTML document
-// 	doc, err := goquery.NewDocumentFromReader(res.Body)
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-
-// 	doc.Find("#pills-ipv4 table tr td a").Each(func(i int, s *goquery.Selection) {
-// 		ip := s.Text()
-// 		aliAS37963IpV4List = append(aliAS37963IpV4List, ip)
-// 		fmt.Printf("Num %d: %s\n", i, ip)
-// 	})
-
-// 	doc.Find("#pills-ipv6 table tr td a").Each(func(i int, s *goquery.Selection) {
-// 		// For each item found, get the title
-// 		ip := s.Text()
-// 		aliAS37963IpV6List = append(aliAS37963IpV6List, ip)
-// 		fmt.Printf("Num %d: %s\n", i, ip)
-// 	})
-// }
+		if strings.HasPrefix(clashRule, "IP-CIDR,") {
+			tmp := strings.Replace(clashRule, "IP-CIDR,", "", -1)
+			ipCidr := strings.Replace(tmp, ",no-resolve", "", -1)
+			cloudCNListV4List = append(cloudCNListV4List, ipCidr)
+		} else if strings.HasPrefix(clashRule, "IP-CIDR6,") {
+			tmp := strings.Replace(clashRule, "IP-CIDR6,", "", -1)
+			ipCidr := strings.Replace(tmp, ",no-resolve", "", -1)
+			cloudCNListV6List = append(cloudCNListV6List, ipCidr)
+		}
+	}
+}

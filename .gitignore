@@ -8,7 +8,7 @@
 mindmax/
 *.mmdb
 china_ip_list.txt
-CN.txt
+chunzhen_cn.txt
 all_cn.txt
 all_cn_ipv6.txt
 *.list

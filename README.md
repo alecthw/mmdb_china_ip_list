@@ -5,7 +5,7 @@
 <a href="https://jb.gg/OpenSourceSupport"><img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg" height="20"></a>
 ![Daily Build](https://github.com/alecthw/mmdb_china_ip_list/workflows/Daily%20Build/badge.svg)
 
-将`china_ip_list`、`纯真CN`、`Clang.CN`和`ali AS37963`发布的中国IP列表叠加到`MaxMind`官方社区版数据库中。
+将`china_ip_list`、`纯真CN`、`Clang.CN`、`ali AS37963`和`ios_rule_script cloudcn`发布的中国IP列表叠加到`MaxMind`官方社区版数据库中。
 
 同时，这也是一个如何生成MaxMind数据库的示例。
 
@@ -13,11 +13,24 @@
 
 每周自动拉取新的MaxMind、china_ip_list、纯真CN和Clang.cn数据库，并发布一个新的Release版本。
 
-## 固定下载连接
+## 包含的社区 CN IP数据库
+- [china_ip_list](https://raw.githubusercontent.com/17mon/china_ip_list/master/china_ip_list.txt)
+- Chunzhen CN: [IPv4](https://raw.githubusercontent.com/metowolf/iplist/master/data/special/china.txt)
+- Clang CN: [IPv4](https://ispip.clang.cn/all_cn.txt) ,[IPv6](https://ispip.clang.cn/all_cn_ipv6.txt)
+- China Operator: [IPv4](https://raw.githubusercontent.com/gaoyifan/china-operator-ip/ip-lists/china.txt) ,[IPv6](https://raw.githubusercontent.com/gaoyifan/china-operator-ip/ip-lists/china6.txt)
+- ios_rule_script CloudCN: [IPv4&IPv6](https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Cloud/CloudCN/CloudCN.list)
 
-- Release 和 Daily 均切换到使用 golang 版本的 mmdb writer 构建
-- 完整版本包含`官方全部非CN的IPv4数据和IPv6数据`，然后写入`china_ip_list`、`纯真CN`和`Clang.CN`。
-- Lite版本仅包含`官方非CN的IPv4数据`和`CN的IPv6数据`，读取官方CSV文件并且跳过了CN的记录，然后再写入`china_ip_list`、`纯真CN`和`Clang.CN`，并且仅写入了`iso_code`和`geoname_id`以达到缩小体积的目的
+## 完整版和Lite版区别
+
+| 版本 | 官方非 CN IPv4 | 官方非CN IPv6 | 社区 CN IPv4 | 社区 CN IPv6 | 元数据 |
+| ------ | ------ | ------ | ------ | ------ | ------ |
+| 完整版 | ✅ | ✅ | ✅ | ✅ | All |
+| Lite 版 | - | - | ✅ | ✅ | 仅`iso_code`和`geoname_id` |
+
+- 官方非 CN: 读取 MaxMind 官方 CSV 文件跳过了 CN 的记录
+- Lite版本仅写入了`iso_code`和`geoname_id`以达到缩小体积的目的
+
+## 固定下载连接
 
 | 文件 | release分支 | CDN |
 | ------ | ------ | ------ |
@@ -84,7 +97,7 @@ mv GeoLite2* mindmax
 curl -LR -o china_ip_list.txt "https://raw.githubusercontent.com/17mon/china_ip_list/master/china_ip_list.txt"
 
 # 下载纯真数据库的CN
-curl -LR -o CN.txt "https://raw.githubusercontent.com/metowolf/iplist/master/data/special/china.txt"
+curl -LR -o chunzhen_cn.txt "https://raw.githubusercontent.com/metowolf/iplist/master/data/special/china.txt"
 
 # 生成mmdb
 perl china_ip_list.pl

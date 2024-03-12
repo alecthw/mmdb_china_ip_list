@@ -75,7 +75,7 @@ jobs:
       - name: Download chunzhen cn list
         run: |
           cd mmdb_china_ip_list
-          curl -LR -o CN.txt "https://raw.githubusercontent.com/metowolf/iplist/master/data/special/china.txt"
+          curl -LR -o chunzhen_cn.txt "https://raw.githubusercontent.com/metowolf/iplist/master/data/special/china.txt"
 
       - name: Build mmdb
         run: |
