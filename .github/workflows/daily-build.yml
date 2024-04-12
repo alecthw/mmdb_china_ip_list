@@ -117,7 +117,7 @@ jobs:
           git checkout -b release
           git add .
           git commit -m "${{ env.RELEASE_NAME }}"
-          git remote add origin "https://${{ github.actor }}:${{ secrets.PERSONAL_TOKEN }}@github.com/${{ github.repository }}"
+          git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
           git push -f -u origin release
           cp -af lite/Country.mmdb Country-lite.mmdb
 
@@ -145,5 +145,3 @@ jobs:
             ./publish/version
             ./publish/Country.mmdb
             ./publish/Country-lite.mmdb
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

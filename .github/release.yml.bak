@@ -97,8 +97,6 @@ jobs:
           files: |
             ./mmdb_china_ip_list/version
             ./mmdb_china_ip_list/china_ip_list.mmdb
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Prepare upload to server
         run: |
