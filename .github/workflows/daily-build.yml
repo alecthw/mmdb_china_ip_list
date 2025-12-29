@@ -127,7 +127,8 @@ jobs:
           host: ${{ secrets.SFTP_HOST }}
           port: ${{ secrets.SFTP_PORT }}
           username: ${{ secrets.SFTP_USERNAME }}
-          password: ${{ secrets.SFTP_PASSWORD }}
+          # password: ${{ secrets.SFTP_PASSWORD }}
+          key: ${{ secrets.SFTP_KEY }}
           source: "publish/Country.mmdb,publish/version,publish/lite/Country.mmdb"
           target: "/www/mmdb"
           rm: true
